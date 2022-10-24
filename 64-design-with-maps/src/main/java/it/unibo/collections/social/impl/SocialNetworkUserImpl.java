@@ -1,11 +1,9 @@
-/**
- * 
- */
 package it.unibo.collections.social.impl;
 
 import it.unibo.collections.social.api.SocialNetworkUser;
 import it.unibo.collections.social.api.User;
 
+import java.security.KeyStore.Entry;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -15,16 +13,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-/**
- * 
- * This will be an implementation of
- * {@link SocialNetworkUser}:
- * 1) complete the definition of the methods by following the suggestions
- * included in the comments below.
- * 
- * @param <U>
- *            Specific {@link User} type
- */
+
 public final class SocialNetworkUserImpl<U extends User> extends UserImpl implements SocialNetworkUser<U> {
 
     /*
@@ -36,6 +25,7 @@ public final class SocialNetworkUserImpl<U extends User> extends UserImpl implem
      * In order to save the people followed by a user organized in groups, adopt
      * a generic-type Map:  think of what type of keys and values would best suit the requirements
      */
+    Map<U, String> followed;
 
     /*
      * [CONSTRUCTORS]
@@ -48,34 +38,27 @@ public final class SocialNetworkUserImpl<U extends User> extends UserImpl implem
      * - username
      * - age and every other necessary field
      */
-    /**
-     * Builds a user participating in a social network.
-     *
-     * @param name
-     *            the user firstname
-     * @param surname
-     *            the user lastname
-     * @param userAge
-     *            user's age
-     * @param user
-     *            alias of the user, i.e. the way a user is identified on an
-     *            application
-     */
     public SocialNetworkUserImpl(final String name, final String surname, final String user, final int userAge) {
-        super(null, null, null, 0);
+        super(name, surname, user, userAge);
     }
 
     /*
      * 2) Define a further constructor where the age defaults to -1
      */
+    public SocialNetworkUserImpl(final String name, final String surname, final String user) {
+        super(name, surname, user, -1);
+    }
 
     /*
      * [METHODS]
      *
      * Implements the methods below
      */
-    @Override
     public boolean addFollowedUser(final String circle, final U user) {
+        if (followed.get(user) == null) {
+            followed.put(user, circle);
+            return true;
+        }
         return false;
     }
 
@@ -84,13 +67,23 @@ public final class SocialNetworkUserImpl<U extends User> extends UserImpl implem
      * [NOTE] If no group with groupName exists yet, this implementation must
      * return an empty Collection.
      */
-    @Override
     public Collection<U> getFollowedUsersInGroup(final String groupName) {
-        return null;
+        Set<Map.Entry<U,String>> set = followed.entrySet();
+        Collection<U> users = new HashSet<>();
+        for (var elem : set) {
+            if (elem.getValue().equals(groupName)) {
+                users.add(elem.getKey());
+            }
+        }
+        return users;
     }
 
-    @Override
     public List<U> getFollowedUsers() {
-        return null;
+        Set<Map.Entry<U,String>> set = followed.entrySet();
+        List<U> users = new ArrayList<>();
+        for (var elem : set) {
+            users.add(elem.getKey());
+        }
+        return users;
     }
 }

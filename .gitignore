@@ -1,0 +1,7 @@
+bin/
+build/
+.gradle/
+gradle/
+build.gradle.kts
+*.bat
+*.sh

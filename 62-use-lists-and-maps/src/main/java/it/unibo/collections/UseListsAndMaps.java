@@ -1,7 +1,9 @@
 package it.unibo.collections;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -15,13 +17,12 @@ public final class UseListsAndMaps {
 
     private static final int TEST_AMOUNT = 100000;
     private static final int READ_AMOUNT = 1000;
-    private static final int MUL_VALUE = 1000;
 
 
     private UseListsAndMaps() {
     }
 
-    private static String timeToFill(List<Integer> list) {
+    private static String timeToFill(final List<Integer> list) {
 	    long time = System.nanoTime();
 	    for (int i=0; i<TEST_AMOUNT; i++) {
 	        list.add(0, i);
@@ -31,22 +32,45 @@ public final class UseListsAndMaps {
 	    return millis + "";
     }
 
-    private static String timeToRead(List<Integer> list) {
+    private static String timeToRead(final List<Integer> list) {
 	    long time = System.nanoTime();
 	    for (int i=0; i<READ_AMOUNT; i++) {
-	        list.get(list.size()/2);
+	        list.get(list.size() / 2);
 	    }
 	    time = System.nanoTime() - time;
 	    final var millis = TimeUnit.NANOSECONDS.toMillis(time);
 	    return millis + "";
     }
 
+    private static Map<String, Long> fillContinentsMap() {
+        Map<String, Long> continents = new HashMap<>();
+        continents.put("Africa", 1_110_635_000L);
+        continents.put("Americas", 972_005_000L);
+        continents.put("Antarctica", 0L);
+        continents.put("Asia", 4_298_723_000L);
+        continents.put("Europe", 742_452_000L);
+        continents.put("Oceania", 38_304_000L);
+        return continents;
+    }
+
+    private static List<String> fillNamesSet() {
+        List<String> names = new ArrayList<>();
+        names.add("Africa");
+        names.add("Americas");
+        names.add("Antartica");
+        names.add("Asia");
+        names.add("Europe");
+        names.add("Oceania");
+        return names;
+    }
+
+
     public static void main(final String... s) {
         /*
          * 1) Create a new ArrayList<Integer>, and populate it with the numbers
          * from 1000 (included) to 2000 (excluded).
          */
-        List<Integer> nums = new ArrayList<>();
+        final List<Integer> nums = new ArrayList<>();
 	    for (int i=1000; i<2000; i++) {
 	        nums.add(i);
 	    }
@@ -56,21 +80,21 @@ public final class UseListsAndMaps {
          * without using any looping construct (for, while), populate it with
          * the same contents of the list of point 1.
          */
-        List<Integer> nums2 = new LinkedList<>(nums);
+        final List<Integer> nums2 = new LinkedList<>(nums);
 
         /*
          * 3) Using "set" and "get" and "size" methods, swap the first and last
          * element of the first list. You can not use any "magic number".
          * (Suggestion: use a temporary variable)
          */
-        int tmp = nums.get(0);
-	    nums.set(0, nums.get(nums.size()-1));
-	    nums.set(nums.size()-1, tmp);
+        final int tmp = nums.get(0);
+	    nums.set(0, nums.get(nums.size() - 1));
+	    nums.set(nums.size() - 1, tmp);
 
         /*
          * 4) Using a single for-each, print the contents of the arraylist.
          */
-        for (Integer elem : nums) {
+        for (final int elem : nums) {
             System.out.println(elem);
         }
 
@@ -113,25 +137,18 @@ public final class UseListsAndMaps {
          *
          * Oceania -> 38,304,000
          */
-        Map<String, Integer> continents = new HashMap<>();
-        continents.put("Africa", 1110635);
-        continents.put("Americas", 972005);
-        continents.put("Antarctica", 0);
-        continents.put("Asia", 4298723);
-        continents.put("Europe", 742452);
-        continents.put("Oceania", 38304);
+        Map<String, Long> continents = fillContinentsMap();
         
         /*
          * 8) Compute the population of the world
          */
         long population = 0;
-	    population = population + continents.get("Africa");
-        population = population + continents.get("Americas");
-        population = population + continents.get("Antarctica");
-        population = population + continents.get("Asia");
-        population = population + continents.get("Europe");
-        population = population + continents.get("Oceania");
-        population = population * MUL_VALUE;
+        Collection<String> names = fillNamesSet();
+
+	    for (var elem : names) {
+            population = population + continents.get(elem);
+        }
+        
 	    System.out.println("World Population = " + population);
     }
 }

@@ -70,9 +70,11 @@ public class GraphImpl<N> implements Graph<N> {
         searchVisit(set, start);
         
         int targetStart = 0;
+        int targetEnd = 0;
         for (final var node : set) {
             if (node.getNode().equals(target)) {
                 targetStart = node.getStart();
+                targetEnd = node.getEnd();
             }
         }
 
@@ -85,7 +87,7 @@ public class GraphImpl<N> implements Graph<N> {
 
         for (int i = targetStart - 1; i > 0; i--) {
             for (final var node : set) {
-                if (node.getStart() == i) {
+                if (node.getStart() == i && node.getEnd() > targetEnd) {
                     output.add(0, node.getNode());
                 }
             }

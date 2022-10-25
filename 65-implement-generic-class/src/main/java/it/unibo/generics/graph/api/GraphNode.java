@@ -14,6 +14,10 @@ public class GraphNode<N> {
         return this.node;
     }
 
+    public Set<N> getEdges() {
+        return edges;
+    }
+
     public void setNewEdge(N target) {
         edges.add(target);
     }

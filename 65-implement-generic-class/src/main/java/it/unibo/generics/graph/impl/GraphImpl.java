@@ -1,5 +1,6 @@
 package it.unibo.generics.graph.impl;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -29,13 +30,23 @@ public class GraphImpl<N> implements Graph<N> {
     }
 
     public Set<N> nodeSet() {
-        // TODO Auto-generated method stub
-        return null;
+        Set<N> output = new HashSet<>();
+        for (final var n : this.nodes) {
+            output.add(n.getNode());
+        }
+        return output;
     }
 
     public Set<N> linkedNodes(N node) {
-        // TODO Auto-generated method stub
-        return null;
+        if (this.nodes.contains(node)) {
+            for (final var n : this.nodes) {
+                if (n.getNode().equals(node)) {
+                    return n.getEdges();
+                }
+            }
+        }
+        
+        return new HashSet<N>();
     }
 
     public List<N> getPath(N source, N target) {

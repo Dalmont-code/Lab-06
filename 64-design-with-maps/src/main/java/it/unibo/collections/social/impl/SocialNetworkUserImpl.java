@@ -25,7 +25,7 @@ public final class SocialNetworkUserImpl<U extends User> extends UserImpl implem
      * In order to save the people followed by a user organized in groups, adopt
      * a generic-type Map:  think of what type of keys and values would best suit the requirements
      */
-    Map<U, String> followed;
+    Map<U, String> followed = new HashMap<>();
 
     /*
      * [CONSTRUCTORS]

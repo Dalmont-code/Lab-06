@@ -1,10 +1,11 @@
 package it.unibo.generics.graph.api;
 
+import java.util.HashSet;
 import java.util.Set;
 
 public class GraphNode<N> {
     private N node;
-    private Set<N> edges;
+    private Set<N> edges = new HashSet<>();
 
     public GraphNode(N node) {
         this.node = node;

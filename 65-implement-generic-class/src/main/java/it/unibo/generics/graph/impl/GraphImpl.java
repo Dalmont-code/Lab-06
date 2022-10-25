@@ -1,7 +1,9 @@
 package it.unibo.generics.graph.impl;
 
 import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Queue;
 import java.util.Set;
 
 import it.unibo.generics.graph.api.Graph;
@@ -50,7 +52,15 @@ public class GraphImpl<N> implements Graph<N> {
     }
 
     public List<N> getPath(N source, N target) {
-        // TODO Auto-generated method stub
-        return null;
+        if (source == null || target == null) {
+            return new LinkedList<N>();
+        }
+
+        if (!this.nodes.contains(source) || !this.nodes.contains(target)) {
+            return new LinkedList<N>();
+        }
+
+        List<N> output = null;
+        return output;
     }
 }

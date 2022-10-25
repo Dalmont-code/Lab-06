@@ -1,12 +1,11 @@
 package it.unibo.collections;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -15,8 +14,8 @@ import java.util.concurrent.TimeUnit;
  */
 public final class UseListsAndMaps {
 
-    private static final int TEST_AMOUNT = 100000;
-    private static final int READ_AMOUNT = 1000;
+    private static final int TEST_AMOUNT = 100_000;
+    private static final int READ_AMOUNT = 1_000;
 
 
     private UseListsAndMaps() {
@@ -52,18 +51,6 @@ public final class UseListsAndMaps {
         continents.put("Oceania", 38_304_000L);
         return continents;
     }
-
-    private static List<String> fillNamesSet() {
-        List<String> names = new ArrayList<>();
-        names.add("Africa");
-        names.add("Americas");
-        names.add("Antartica");
-        names.add("Asia");
-        names.add("Europe");
-        names.add("Oceania");
-        return names;
-    }
-
 
     public static void main(final String... s) {
         /*
@@ -143,10 +130,10 @@ public final class UseListsAndMaps {
          * 8) Compute the population of the world
          */
         long population = 0;
-        Collection<String> names = fillNamesSet();
+        Set<Map.Entry<String, Long>> names = continents.entrySet();
 
 	    for (var elem : names) {
-            population = population + continents.get(elem);
+            population = population + continents.get(elem.getKey());
         }
         
 	    System.out.println("World Population = " + population);

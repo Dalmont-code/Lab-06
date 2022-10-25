@@ -22,4 +22,12 @@ public class GraphNode<N> {
     public void setNewEdge(N target) {
         edges.add(target);
     }
+
+    public boolean equals(GraphNode<N> n) {
+        return this.node.equals(n.getNode());
+    }
+
+    protected void setEdges(Set<N> edges) {
+        this.edges = edges;
+    }
 }

@@ -1,5 +1,7 @@
 package it.unibo.generics.graph.api;
 
+import java.util.Set;
+
 public class ResearchNode<N> extends GraphNode<N> {
 
     private static final int INIT_COUNT = 1;
@@ -10,10 +12,6 @@ public class ResearchNode<N> extends GraphNode<N> {
     
     public ResearchNode(N node) {
         super(node);
-    }
-
-    public void resetSearchCounter() {
-        ResearchNode.counter = INIT_COUNT;
     }
 
     public int getStart() {
@@ -34,6 +32,10 @@ public class ResearchNode<N> extends GraphNode<N> {
         if (end == 0) {
             this.end = counter++;
         }
+    }
+
+    public void setEdges(Set<N> edges) {
+        super.setEdges(edges);
     }
     
 }

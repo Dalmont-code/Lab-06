@@ -45,7 +45,6 @@ public class GraphImpl<N> implements Graph<N> {
                 return n.getEdges();
             }
         }
-        
         return new HashSet<N>();
     }
 
@@ -53,7 +52,11 @@ public class GraphImpl<N> implements Graph<N> {
         if (source == null || target == null) {
             return new LinkedList<N>();
         }
+        Set<ResearchNode<N>> set = resultDFS(source);
+        return getSequence(set, target);
+    }
 
+    private Set<ResearchNode<N>> resultDFS(N source) {
         Set<ResearchNode<N>> set = new HashSet<>();
         ResearchNode<N> start = null;
 
@@ -66,9 +69,11 @@ public class GraphImpl<N> implements Graph<N> {
                 start = fill;
             }
         }
-
         searchVisit(set, start);
-        
+        return set;
+    }
+
+    private List<N> getSequence(Set<ResearchNode<N>> set, N target) {
         int targetStart = 0;
         int targetEnd = 0;
         for (final var node : set) {
@@ -92,7 +97,6 @@ public class GraphImpl<N> implements Graph<N> {
                 }
             }
         }
-
         return output;
     }
 
